@@ -21,4 +21,9 @@ UI test automation framework built with Selenium, Spring and Cucumber.
 
 ## Author
 
-**Nassim Oufighou** — [LinkedIn](https://linkedin.com/in/nassim-oufighou)
+**Nassim Oufighou Okba** — [LinkedIn](https://linkedin.com/in/nassim-oufighou)
+
+
+## License
+
+MIT © Nassim Oufighou Okba
