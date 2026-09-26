@@ -17,6 +17,8 @@
         <testng.version>7.10.2</testng.version>
         <cucumber.version>7.33.0</cucumber.version>
         <cucumber.testng.version>7.25.0</cucumber.testng.version>
+        <sl4j.version>2.0.18</sl4j.version>
+        <logback.version>1.5.6</logback.version>
     </properties>
 
     <dependencies>
@@ -58,6 +60,20 @@
             <artifactId>cucumber-testng</artifactId>
             <version>${cucumber.testng.version}</version>
             <scope>compile</scope>
+        </dependency>
+
+        <!-- Source: https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${sl4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
         </dependency>
     </dependencies>
 
