@@ -11,4 +11,6 @@
     </root>
 
     <logger name="org.testng.internal.Utils" level="OFF" />
+    <logger name="io.github.bonigarcia.wdm.WebDriverManager" level="OFF" />
+    <logger name="io.github.bonigarcia.wdm.online.Downloader" level="OFF" />
 </configuration>
