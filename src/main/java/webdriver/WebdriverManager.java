@@ -1,6 +1,5 @@
 package webdriver;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import utils.ConfigReader;
 
@@ -31,7 +30,4 @@ public class WebdriverManager {
         }
     }
 
-    public WebDriver getWebdriver() {
-        return webDriver;
-    }
 }
