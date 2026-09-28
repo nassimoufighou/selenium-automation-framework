@@ -1,2 +1,2 @@
 ## Architecture decisions
-* Use a singleton in [WebdriverManager](https://github.com/nassimoufighou/selenium-automation-framework/blob/develop/src/main/java/webdriver/WebdriverManager.java) just to make the whole flow work. Will be replaced by Spring-managed bean when DI is introduced — Spring components are singletons by default
+* Use a singleton in [WebdriverManager](https://github.com/nassimoufighou/selenium-automation-framework/blob/develop/src/main/java/webdriver/WebdriverManager.java) just to make the whole flow work. Will be replaced by Spring-managed bean when DI is introduced — Spring components are singletons by default. _[Sept. 29, 2026]_
