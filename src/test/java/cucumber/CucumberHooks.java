@@ -10,8 +10,6 @@ import webdriver.WebdriverManager;
 
 public class CucumberHooks {
 
-    private WebDriver webDriver;
-
     @Before
     public void before() {
         WebdriverManager.getInstance().open(ConfigReader.get("base.url", "config.properties"));
