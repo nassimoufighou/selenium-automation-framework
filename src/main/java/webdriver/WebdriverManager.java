@@ -2,7 +2,7 @@ package webdriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import utils.ConfigReader;
 
 public class WebdriverManager {
 
@@ -18,8 +18,8 @@ public class WebdriverManager {
 
     public void open(String  url) {
         if (webDriver == null) {
-            WebDriverManager.firefoxdriver().setup();
-            webDriver = new FirefoxDriver();
+            String browser = ConfigReader.get("browser", "config.properties");
+            webDriver = WebdriverFactory.getWebdriverForBrowser(browser);
         }
         webDriver.get(url);
     }
