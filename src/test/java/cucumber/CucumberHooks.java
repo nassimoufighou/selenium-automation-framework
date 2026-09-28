@@ -6,6 +6,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import utils.ConfigReader;
+import webdriver.WebdriverManager;
 
 public class CucumberHooks {
 
@@ -13,14 +14,11 @@ public class CucumberHooks {
 
     @Before
     public void before() {
-
-        WebDriverManager.firefoxdriver().setup();
-        webDriver = new FirefoxDriver();
-        webDriver.get(ConfigReader.get("base.url", "config.properties"));
+        WebdriverManager.getInstance().open(ConfigReader.get("base.url", "config.properties"));
     }
 
     @After
     public void after() {
-        webDriver.close();
+        WebdriverManager.getInstance().quit();
     }
 }
