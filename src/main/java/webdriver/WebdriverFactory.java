@@ -12,6 +12,8 @@ public class WebdriverFactory {
         WebDriver webDriver = null;
         switch (browser.toUpperCase(Locale.ROOT)){
             case "EDGE":
+                String os = System.getProperty("os.name");
+                if (!os.toLowerCase(Locale.ROOT).contains("windows")) throw new IllegalArgumentException(String.format("Edge not supported in [%s]", os));
                 WebDriverManager.edgedriver().setup();
                 webDriver = new EdgeDriver();
                 break;
@@ -19,6 +21,7 @@ public class WebdriverFactory {
                 WebDriverManager.firefoxdriver().setup();
                 webDriver = new FirefoxDriver();
                 break;
+            default: throw new IllegalArgumentException(String.format("Browser [%s] not supported.", browser));
         }
         return webDriver;
     }
