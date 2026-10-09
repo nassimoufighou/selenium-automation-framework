@@ -9,17 +9,27 @@ import java.util.Locale;
 
 public class WebdriverFactory {
 
+    private static WebDriver webDriver;
+
     public static WebDriver getWebdriverForBrowser(String browser) {
         switch (browser.toUpperCase(Locale.ROOT)){
             case "EDGE":
                 String os = System.getProperty("os.name");
                 if (!os.toLowerCase(Locale.ROOT).contains("windows")) throw new BrowserNotSupportedException(browser, os);
                 WebDriverManager.edgedriver().setup();
-                return new EdgeDriver();
+                webDriver = new EdgeDriver();
+                maximizeWebdriverWindow();
+                return webDriver;
             case "FIREFOX":
                 WebDriverManager.firefoxdriver().setup();
-                return new FirefoxDriver();
+                webDriver = new FirefoxDriver();
+                maximizeWebdriverWindow();
+                return webDriver;
             default: throw new BrowserNotSupportedException(browser);
         }
+    }
+
+    private static void maximizeWebdriverWindow() {
+        webDriver.manage().window().maximize();
     }
 }
