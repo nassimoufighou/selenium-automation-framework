@@ -1,14 +1,23 @@
 package steps;
 
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.slf4j.Logger;
+import pages.LoginPage;
+import pages.ShadyMeadows;
 import utils.LoggerUtils;
 
 public class LoginPageSteps {
     
     private Logger logger = LoggerUtils.getLogger(LoginPageSteps.class);
-    
+    private LoginPage loginPage = ShadyMeadows.getInstance().loginPage();
+
+    @And("I am on the Login page")
+    public void loginPage() {
+        loginPage.waitForPageToBeLoaded();
+    }
+
     @And("I enter {string} in \"Username\"")
     public void enterUser(String user) {
         logger.info(String.format("ENTER %s USER", user));
