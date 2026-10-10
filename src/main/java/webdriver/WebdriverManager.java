@@ -23,11 +23,14 @@ public class WebdriverManager {
         webDriver.get(url);
     }
 
+    public WebDriver getWebDriver() {
+        return webDriver;
+    }
+
     public void quit() {
         if (webDriver != null) {
             webDriver.quit();
             webDriver = null;
         }
     }
-
 }
