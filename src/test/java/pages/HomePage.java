@@ -9,7 +9,7 @@ import webdriver.WebdriverManager;
 
 import java.time.Duration;
 
-public class WelcomePage {
+public class HomePage {
 
     private WebDriver webDriver = WebdriverManager.getInstance().getWebDriver();
     private WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
