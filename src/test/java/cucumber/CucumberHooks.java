@@ -5,6 +5,7 @@ import io.cucumber.java.Before;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import pages.ShadyMeadows;
 import utils.ConfigReader;
 import webdriver.WebdriverManager;
 
@@ -18,5 +19,6 @@ public class CucumberHooks {
     @After
     public void after() {
         WebdriverManager.getInstance().quit();
+        ShadyMeadows.getInstance().reset();
     }
 }
