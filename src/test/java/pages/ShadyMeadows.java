@@ -3,7 +3,7 @@ package pages;
 public class ShadyMeadows {
 
     private static ShadyMeadows instance;
-    private static WelcomePage welcomePage;
+    private static HomePage homePage;
     private static LoginPage loginPage;
 
     public static ShadyMeadows getInstance() {
@@ -11,9 +11,9 @@ public class ShadyMeadows {
         return instance;
     }
 
-    public static WelcomePage welcomePage() {
-        if (welcomePage == null) welcomePage = new WelcomePage();
-        return welcomePage;
+    public static HomePage welcomePage() {
+        if (homePage == null) homePage = new HomePage();
+        return homePage;
     }
 
     public static LoginPage loginPage() {
@@ -22,7 +22,7 @@ public class ShadyMeadows {
     }
 
     public static void reset() {
-        welcomePage = null;
+        homePage = null;
         loginPage = null;
     }
 
