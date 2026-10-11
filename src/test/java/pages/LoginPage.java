@@ -9,6 +9,8 @@ import webdriver.WebdriverManager;
 
 import java.time.Duration;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+
 public class LoginPage {
 
     private WebDriver webDriver = WebdriverManager.getInstance().getWebDriver();
@@ -16,12 +18,24 @@ public class LoginPage {
 
     public void waitForPageToBeLoaded() {
         By headerLocator = By.xpath("//h2[contains(text(), \"Login\")]");
-        wait.until(ExpectedConditions.presenceOfElementLocated(headerLocator));
+        wait.until(presenceOfElementLocated(headerLocator));
     }
 
-    public void gotoAdmin() {
-        By adminPageLocator = By.xpath("//a[@href=\"/admin\"]");
-        WebElement adminPageLink = webDriver.findElement(adminPageLocator);
-        adminPageLink.click();
+    public void enterUser(String user) {
+        By userLocator = By.id("username");
+        WebElement userInput = wait.until(presenceOfElementLocated(userLocator));
+        userInput.sendKeys(user);
+    }
+
+    public void enterPassword(String password) {
+        By passwordLocator = By.id("password");
+        WebElement passwordInput = wait.until(presenceOfElementLocated(passwordLocator));
+        passwordInput.sendKeys(password);
+    }
+
+    public void clickLoginButton() {
+        By loginButtonLocator = By.id("doLogin");
+        WebElement loginButton = wait.until(presenceOfElementLocated(loginButtonLocator));
+        loginButton.click();
     }
 }
