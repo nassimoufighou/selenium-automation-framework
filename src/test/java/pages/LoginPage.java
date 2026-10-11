@@ -2,17 +2,10 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import webdriver.WebdriverManager;
-import java.time.Duration;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
-public class LoginPage {
-
-    private WebDriver webDriver = WebdriverManager.getInstance().getWebDriver();
-    private WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+public class LoginPage extends ShadyMeadowsBasePage {
 
     public void waitForPageToBeLoaded() {
         By headerLocator = By.xpath("//h2[contains(text(), \"Login\")]");
