@@ -20,17 +20,17 @@ public class LoginPageSteps {
 
     @And("I enter {string} in \"Username\"")
     public void enterUser(String user) {
-        logger.info(String.format("ENTER %s USER", user));
+        loginPage.enterUser(user);
     }
 
     @And("I enter {string} in \"Password\"")
     public void enterPassword(String password) {
-        logger.info(String.format("ENTER %s PASSWORD", password));
+        loginPage.enterPassword(password);
     }
 
     @And("I click on the login button")
     public void clickLoginButton() {
-        logger.info("CLICK LOGIN BUTTON");
+        loginPage.clickLoginButton();
     }
 
     @Then("I should be redirected to my dashboard")
