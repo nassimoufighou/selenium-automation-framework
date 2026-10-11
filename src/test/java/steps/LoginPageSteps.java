@@ -3,6 +3,7 @@ package steps;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.slf4j.Logger;
+import org.testng.Assert;
 import pages.LoginPage;
 import pages.ShadyMeadows;
 import utils.LoggerUtils;
@@ -34,6 +35,7 @@ public class LoginPageSteps {
 
     @Then("an error message should appear")
     public void errorMessageShouldAppear() {
-        logger.info("ERROR MESSAGE APPEARS");
+        boolean invalidCredentialsMessageIsShown = loginPage.isInvalidCredentialsMessageIsShown();
+        Assert.assertTrue(invalidCredentialsMessageIsShown);
     }
 }
