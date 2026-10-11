@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -34,5 +35,17 @@ public class LoginPage {
         By loginButtonLocator = By.id("doLogin");
         WebElement loginButton = wait.until(presenceOfElementLocated(loginButtonLocator));
         loginButton.click();
+    }
+
+    public boolean isInvalidCredentialsMessageIsShown() {
+        boolean isInvalidCredentialsMessageIsShown = true;
+        try {
+            By errorMessageLocator = By.xpath("//div[contains(@role, \"alert\")]");
+            wait.until(presenceOfElementLocated(errorMessageLocator));
+        }
+        catch (TimeoutException timeoutException) {
+            isInvalidCredentialsMessageIsShown = false;
+        }
+        return isInvalidCredentialsMessageIsShown;
     }
 }
