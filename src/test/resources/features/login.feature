@@ -1,4 +1,4 @@
-Feature: Login Feature
+Feature: Login
 
   Scenario Outline: Successful Login with valid credentials
     Given I am on the Restful booker platform page
