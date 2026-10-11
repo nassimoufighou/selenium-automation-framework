@@ -14,13 +14,11 @@ public class HomePageSteps {
 
     @Given("I am on the Restful booker platform page")
     public void homePage() {
-        logger.info("HOME PAGE");
         homePage.waitForPageToBeLoaded();
     }
 
     @When("I navigate to the Admin page")
     public void navigateToAdminPage() {
-        logger.info("NAVIGATE TO ADMIN PAGE");
         homePage.gotoAdmin();
     }
 }
