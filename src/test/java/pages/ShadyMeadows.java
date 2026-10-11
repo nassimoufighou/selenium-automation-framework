@@ -5,6 +5,7 @@ public class ShadyMeadows {
     private static ShadyMeadows instance;
     private static HomePage homePage;
     private static LoginPage loginPage;
+    private static AdminDashboardPage adminDashboardPage;
 
     public static ShadyMeadows getInstance() {
         if (instance == null) instance = new ShadyMeadows();
@@ -21,9 +22,15 @@ public class ShadyMeadows {
         return loginPage;
     }
 
+    public static AdminDashboardPage adminDashboardPage() {
+        if (adminDashboardPage == null) adminDashboardPage = new AdminDashboardPage();
+        return adminDashboardPage;
+    }
+
     public static void reset() {
         homePage = null;
         loginPage = null;
+        adminDashboardPage = null;
     }
 
 }
