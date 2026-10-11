@@ -15,6 +15,8 @@ Feature: Login Feature
 
   Scenario Outline: Unsuccessful Login
     Given I am on the Restful booker platform page
+    When I navigate to the Admin page
+    And I am on the Login page
     And I enter "<USER>" in "Username"
     And I enter "<PASSWORD>" in "Password"
     And I click on the login button
