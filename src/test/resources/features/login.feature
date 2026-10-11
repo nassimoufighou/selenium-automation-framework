@@ -1,6 +1,6 @@
 Feature: Login Feature
 
-  Scenario Outline: Successful Login
+  Scenario Outline: Successful Login with valid credentials
     Given I am on the Restful booker platform page
     When I navigate to the Admin page
     And I am on the Login page
@@ -13,7 +13,7 @@ Feature: Login Feature
       | USER  | PASSWORD |
       | admin | password |
 
-  Scenario Outline: Unsuccessful Login
+  Scenario Outline: Failed login with invalid credentials
     Given I am on the Restful booker platform page
     When I navigate to the Admin page
     And I am on the Login page
