@@ -33,7 +33,7 @@ public class LoginPageSteps {
         loginPage.clickLoginButton();
     }
 
-    @Then("an error message should appear")
+    @Then("an \"Invalid credentials\" error message should appear")
     public void errorMessageShouldAppear() {
         boolean invalidCredentialsMessageIsShown = loginPage.isInvalidCredentialsMessageIsShown();
         Assert.assertTrue(invalidCredentialsMessageIsShown);

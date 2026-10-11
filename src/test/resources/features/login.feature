@@ -20,7 +20,7 @@ Feature: Login Feature
     And I enter "<USER>" in "Username"
     And I enter "<PASSWORD>" in "Password"
     And I click on the login button
-    Then an error message should appear
+    Then an "Invalid credentials" error message should appear
 
     Examples:
       | USER  | PASSWORD |
