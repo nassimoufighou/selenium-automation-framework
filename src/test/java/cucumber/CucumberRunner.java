@@ -5,7 +5,8 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
         features = "src/test/resources/features/",
-        glue = {"steps", "cucumber"}
+        glue = {"steps", "cucumber"},
+        plugin = {"pretty"}
 )
 public class CucumberRunner extends AbstractTestNGCucumberTests {
 }
