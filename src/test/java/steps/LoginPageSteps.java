@@ -1,6 +1,5 @@
 package steps;
 
-import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.slf4j.Logger;
@@ -31,11 +30,6 @@ public class LoginPageSteps {
     @And("I click on the login button")
     public void clickLoginButton() {
         loginPage.clickLoginButton();
-    }
-
-    @Then("I should be redirected to my dashboard")
-    public void redirectToDashboard() {
-        logger.info("REDIRECT TO DASHBOARD");
     }
 
     @Then("an error message should appear")
