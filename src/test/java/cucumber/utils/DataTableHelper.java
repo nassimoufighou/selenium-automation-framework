@@ -1,4 +1,4 @@
-package cucumber;
+package cucumber.utils;
 
 import io.cucumber.datatable.DataTable;
 import java.util.List;
