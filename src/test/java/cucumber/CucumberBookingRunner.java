@@ -8,5 +8,5 @@ import io.cucumber.testng.CucumberOptions;
         glue = {"steps", "cucumber"},
         plugin = {"pretty"}
 )
-public class CucumberCreateBookingRunner extends AbstractTestNGCucumberTests {
+public class CucumberBookingRunner extends AbstractTestNGCucumberTests {
 }
