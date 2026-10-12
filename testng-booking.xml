@@ -2,7 +2,7 @@
 <suite name="Suite" parallel="methods" thread-count="2">
     <test name="test">
         <classes>
-            <class name="cucumber.CucumberRunner"/>
+            <class name="cucumber.CucumberCreateBookingRunner"/>
         </classes>
     </test>
 </suite>
