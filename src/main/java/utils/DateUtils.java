@@ -12,10 +12,7 @@ public final class DateUtils {
     public static final String DD_MM_YYYY = "dd/MM/yyyy";      // 03/11/2026
 
     public static String dateInDays(int days, String pattern) {
-        if (days < 0) return LocalDate.now()
-                .minusDays(days)
-                .format(DateTimeFormatter.ofPattern(pattern, Locale.ENGLISH));
-        else return LocalDate.now()
+        return LocalDate.now()
                 .plusDays(days)
                 .format(DateTimeFormatter.ofPattern(pattern, Locale.ENGLISH));
     }
