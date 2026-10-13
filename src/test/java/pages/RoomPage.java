@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import utils.DateUtils;
 
@@ -70,8 +71,14 @@ public class RoomPage extends ShadyMeadowsBasePage {
     }
 
     public boolean isErrorMessageShown() {
-        By errorMessageLocator = By.xpath("//div[@class=\"card-body\"]//div[@role=\"alert\"]");
-        return !webDriver.findElements(errorMessageLocator).isEmpty();
+        boolean isErrorMessageShown = false;
+        try {
+            By errorMessageLocator = By.xpath("//div[@class=\"card-body\"]//div[@role=\"alert\"]");
+            wait.until(visibilityOfElementLocated(errorMessageLocator));
+            isErrorMessageShown = true;
+        }
+        catch (TimeoutException te) {}
+        return isErrorMessageShown;
     }
 
     public String[] getBookingDates() {
