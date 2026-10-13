@@ -5,11 +5,11 @@ import io.cucumber.java.en.When;
 import org.slf4j.Logger;
 import pages.ShadyMeadows;
 import pages.HomePage;
+import utils.DateUtils;
 import utils.LoggerUtils;
 
-public class HomePageSteps {
+public class HomePageSteps extends BaseStep {
 
-    private Logger logger = LoggerUtils.getLogger(HomePageSteps.class);
     private HomePage homePage = ShadyMeadows.getInstance().welcomePage();
 
     @Given("I am on the Restful booker platform page")
@@ -25,7 +25,12 @@ public class HomePageSteps {
     @When("I select a stay of {int} night starting {int} days from today")
     @When("I select a stay of {int} nights starting {int} days from today")
     public void selectDates(int nights, int fromOffset) {
-        homePage.selectStayDates(nights, fromOffset);
+        String checkinDate = DateUtils.dateInDays(fromOffset, DateUtils.DD_MM_YYYY);
+        String checkoutDate = DateUtils.dateInDays(fromOffset + nights, DateUtils.DD_MM_YYYY);
+
+        saveTestData(CHECKIN, checkinDate);
+        saveTestData(CHECKOUT, checkoutDate);
+        homePage.selectStayDates(checkinDate, checkoutDate);
     }
 
     @When("I select an available room")

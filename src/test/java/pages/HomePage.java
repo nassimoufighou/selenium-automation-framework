@@ -22,10 +22,7 @@ public class HomePage extends ShadyMeadowsBasePage {
         adminPageLink.click();
     }
 
-    public void selectStayDates(int nights, int fromOffest) {
-        String checkinDate = DateUtils.dateInDays(fromOffest, DateUtils.DD_MM_YYYY);
-        String checkoutDate = DateUtils.dateInDays(fromOffest + nights, DateUtils.DD_MM_YYYY);
-
+    public void selectStayDates(String checkinDate, String checkoutDate) {
         By checkinLocator = By.xpath("//label[@for=\"checkin\"]//..//input");
         WebElement checkin = wait.until(presenceOfElementLocated(checkinLocator));
         clearInput(checkin);
