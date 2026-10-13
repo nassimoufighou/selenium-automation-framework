@@ -7,13 +7,17 @@ import java.util.Locale;
 public final class DateUtils {
 
     public static final String MMMM_D_YYYY = "MMMM d yyyy";    // November 3 2026
-    public static final String MMMM = "MMMM";                  // November
-    public static final String D = "d";                        // 3
     public static final String DD_MM_YYYY = "dd/MM/yyyy";      // 03/11/2026
+    public static final String YYYY_MM_DD = "yyyy-MM-dd";      // 2026-11-03
 
     public static String dateInDays(int days, String pattern) {
         return LocalDate.now()
                 .plusDays(days)
                 .format(DateTimeFormatter.ofPattern(pattern, Locale.ENGLISH));
+    }
+
+    public static String formatDate(String date, String fromPattern, String toPattern) {
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern(fromPattern, Locale.ENGLISH))
+                .format(DateTimeFormatter.ofPattern(toPattern, Locale.ENGLISH));
     }
 }
