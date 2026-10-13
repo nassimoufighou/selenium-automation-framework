@@ -35,17 +35,24 @@ public class RoomPageSteps extends BaseStep {
         int rowCount = DataTableHelper.rowCount(bookingInformation);
         for (int row = 0; row < rowCount; ++row) {
             String firstName = DataTableHelper.getColumnFromRow(bookingInformation, "FIRST_NAME", row);
-            roomPage.enterFirstName(firstName);
+            if (firstName != null) roomPage.enterFirstName(firstName);
 
             String lastName = DataTableHelper.getColumnFromRow(bookingInformation, "LAST_NAME", row);
-            roomPage.enterLastName(lastName);
+            if (lastName != null) roomPage.enterLastName(lastName);
 
             String email = DataTableHelper.getColumnFromRow(bookingInformation, "EMAIL", row);
-            roomPage.enterEmail(email);
+            if (email != null) roomPage.enterEmail(email);
 
             String phone = DataTableHelper.getColumnFromRow(bookingInformation, "PHONE", row);
-            roomPage.enterPhone(phone);
+            if (phone != null) roomPage.enterPhone(phone);
         }
+    }
+
+    @Then("I get an error message because of the missing fields")
+    public void isErrorMessageShown() throws InterruptedException {
+        boolean isErrorMessageShown = roomPage.isErrorMessageShown();
+        Thread.sleep(2000);
+        Assert.assertTrue(isErrorMessageShown);
     }
 
     @Then("I get the booking confirmation with the booking dates")
