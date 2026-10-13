@@ -69,6 +69,12 @@ public class RoomPage extends ShadyMeadowsBasePage {
         wait.until(attributeContains(calendarDay, "class", "current"));
     }
 
+    public String[] getBookingDates() {
+        By bookingDatesLocator = By.xpath("//h2[contains(text(), \"Booking Confirmed\")]//ancestor::div[@class=\"card-body\"]//strong");
+        WebElement bookingDates = wait.until(presenceOfElementLocated(bookingDatesLocator));
+        return bookingDates.getText().split(" - ");
+    }
+
     private void navigateToDate(String date) {
         boolean dateFound;
         By dateLocator = By.xpath(String.format("//span[contains(text(), \"%s\")]", date));
