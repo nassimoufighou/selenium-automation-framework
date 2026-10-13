@@ -4,10 +4,12 @@ import cucumber.utils.DataTableHelper;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import org.testng.Assert;
 import pages.RoomPage;
 import pages.ShadyMeadows;
+import utils.DateUtils;
 
-public class RoomPageSteps {
+public class RoomPageSteps extends BaseStep {
 
     private RoomPage roomPage = ShadyMeadows.getInstance().roomPage();
 
@@ -47,5 +49,16 @@ public class RoomPageSteps {
     }
 
     @Then("I get the booking confirmation with the booking dates")
-    public void bookingConfirmation() {}
+    public void bookingConfirmation() {
+        String[] bookingDates = roomPage.getBookingDates();
+        String checkin = bookingDates[0];
+        String checkout = bookingDates[1];
+
+        String checkinFromTestData = DateUtils.formatDate(String.valueOf(getTestData(CHECKIN)), DateUtils.DD_MM_YYYY, DateUtils.YYYY_MM_DD);
+        String checkoutFromTestData = DateUtils.formatDate(String.valueOf(getTestData(CHECKOUT)), DateUtils.DD_MM_YYYY, DateUtils.YYYY_MM_DD);
+
+        Assert.assertNotNull(bookingDates);
+        Assert.assertEquals(checkin, checkinFromTestData);
+        Assert.assertEquals(checkout, checkoutFromTestData);
+    }
 }
