@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.springframework.stereotype.Component;
 import utils.DateUtils;
 
 import java.util.List;
@@ -9,42 +10,43 @@ import java.util.List;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
+@Component
 public class HomePage extends ShadyMeadowsBasePage {
 
     public void waitForPageToBeLoaded() {
         By headerLocator = By.xpath("//a[contains(text(), \"Book Now\")]");
-        wait.until(presenceOfElementLocated(headerLocator));
+        waitUntil(presenceOfElementLocated(headerLocator));
     }
 
     public void gotoAdmin() {
         By adminPageLocator = By.xpath("//a[@href=\"/admin\"]");
-        WebElement adminPageLink = webDriver.findElement(adminPageLocator);
+        WebElement adminPageLink = webdriver().findElement(adminPageLocator);
         adminPageLink.click();
     }
 
     public void selectStayDates(String checkinDate, String checkoutDate) {
         By checkinLocator = By.xpath("//label[@for=\"checkin\"]//..//input");
-        WebElement checkin = wait.until(presenceOfElementLocated(checkinLocator));
+        WebElement checkin = waitUntil(presenceOfElementLocated(checkinLocator));
         clearInput(checkin);
         checkin.sendKeys(checkinDate);
 
         By checkoutLocator = By.xpath("//label[@for=\"checkout\"]//..//input");
-        WebElement checkout = wait.until(presenceOfElementLocated(checkoutLocator));
+        WebElement checkout = waitUntil(presenceOfElementLocated(checkoutLocator));
         clearInput(checkout);
         checkout.sendKeys(checkoutDate);
 
         By checkAvailabilityButtonLocator = By.xpath("//button[contains(text(), \"Check Availability\")]");
-        WebElement checkAvailabilityButton = wait.until(elementToBeClickable(checkAvailabilityButtonLocator));
+        WebElement checkAvailabilityButton = waitUntil(elementToBeClickable(checkAvailabilityButtonLocator));
         checkAvailabilityButton.click();
     }
 
     public void selectAvailableRoom(){
         By accomodationsLocator = By.id("rooms");
-        WebElement accomodationsSection = wait.until(presenceOfElementLocated(accomodationsLocator));
+        WebElement accomodationsSection = waitUntil(presenceOfElementLocated(accomodationsLocator));
         scrollToCenter(accomodationsSection);
 
         By availableRoomsLocator = By.xpath("//section[@id=\"rooms\"]//div[contains(@class, \"card-footer\")]//a");
-        List<WebElement> availableRooms = webDriver.findElements(availableRoomsLocator);
+        List<WebElement> availableRooms = webdriver().findElements(availableRoomsLocator);
         availableRooms.get(0).click();
     }
 }

@@ -1,18 +1,21 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.springframework.stereotype.Component;
+
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
+@Component
 public class AdminDashboardPage extends ShadyMeadowsBasePage {
 
     public void waitForPageToBeLoaded() {
-        wait.until(urlContains("/admin/rooms"));
+        waitUntil(urlContains("/admin/rooms"));
 
         By listingTableHeadersLocator = By.xpath("//div[contains(@class, \"rowHeader\")]");
-        wait.until(numberOfElementsToBe(listingTableHeadersLocator, 5));
+        waitUntil(numberOfElementsToBe(listingTableHeadersLocator, 5));
 
         By createButtonLocator = By.id("createRoom");
-        wait.until(presenceOfElementLocated(createButtonLocator));
+        waitUntil(presenceOfElementLocated(createButtonLocator));
 
     }
 
