@@ -8,34 +8,33 @@ import pages.LoginPage;
 import pages.ShadyMeadows;
 import utils.LoggerUtils;
 
-public class LoginPageSteps {
+public class LoginPageSteps extends BaseStep {
     
     private Logger logger = LoggerUtils.getLogger(LoginPageSteps.class);
-    private LoginPage loginPage = ShadyMeadows.getInstance().loginPage();
 
     @And("I am on the Login page")
     public void loginPage() {
-        loginPage.waitForPageToBeLoaded();
+        shadyMeadows.loginPage().waitForPageToBeLoaded();
     }
 
     @And("I enter {string} in \"Username\"")
     public void enterUser(String user) {
-        loginPage.enterUser(user);
+        shadyMeadows.loginPage().enterUser(user);
     }
 
     @And("I enter {string} in \"Password\"")
     public void enterPassword(String password) {
-        loginPage.enterPassword(password);
+        shadyMeadows.loginPage().enterPassword(password);
     }
 
     @And("I click on the login button")
     public void clickLoginButton() {
-        loginPage.clickLoginButton();
+        shadyMeadows.loginPage().clickLoginButton();
     }
 
     @Then("an \"Invalid credentials\" error message should appear")
     public void errorMessageShouldAppear() {
-        boolean invalidCredentialsMessageIsShown = loginPage.isInvalidCredentialsMessageIsShown();
+        boolean invalidCredentialsMessageIsShown = shadyMeadows.loginPage().isInvalidCredentialsMessageIsShown();
         Assert.assertTrue(invalidCredentialsMessageIsShown);
     }
 }

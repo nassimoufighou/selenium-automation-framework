@@ -2,24 +2,18 @@ package steps;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
-import org.slf4j.Logger;
-import pages.ShadyMeadows;
-import pages.HomePage;
 import utils.DateUtils;
-import utils.LoggerUtils;
 
 public class HomePageSteps extends BaseStep {
 
-    private HomePage homePage = ShadyMeadows.getInstance().welcomePage();
-
     @Given("I am on the Restful booker platform page")
     public void homePage() {
-        homePage.waitForPageToBeLoaded();
+        shadyMeadows.welcomePage().waitForPageToBeLoaded();
     }
 
     @When("I navigate to the Admin page")
     public void navigateToAdminPage() {
-        homePage.gotoAdmin();
+        shadyMeadows.welcomePage().gotoAdmin();
     }
 
     @When("I select a stay of {int} night starting {int} days from today")
@@ -30,11 +24,11 @@ public class HomePageSteps extends BaseStep {
 
         saveTestData(CHECKIN, checkinDate);
         saveTestData(CHECKOUT, checkoutDate);
-        homePage.selectStayDates(checkinDate, checkoutDate);
+        shadyMeadows.welcomePage().selectStayDates(checkinDate, checkoutDate);
     }
 
     @When("I select an available room")
     public void iSelectA() {
-        homePage.selectAvailableRoom();
+        shadyMeadows.welcomePage().selectAvailableRoom();
     }
 }

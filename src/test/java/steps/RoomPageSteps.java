@@ -11,22 +11,20 @@ import utils.DateUtils;
 
 public class RoomPageSteps extends BaseStep {
 
-    private RoomPage roomPage = ShadyMeadows.getInstance().roomPage();
-
     @And("I land in the room page")
     public void roomPage(){
-        roomPage.waitForPageToBeLoaded();
+        shadyMeadows.roomPage().waitForPageToBeLoaded();
     }
 
     @And("I select a date {int} days in the future for the booking")
     public void iSelectADate(int daysAhead) {
-        roomPage.selectDate(daysAhead);
+        shadyMeadows.roomPage().selectDate(daysAhead);
     }
 
     @And("I click the button to {word} the reservation process")
     public void clickReserveNow(String action) {
-        if (action.equalsIgnoreCase("start")) roomPage.startReservation();
-        else if (action.equalsIgnoreCase("finish")) roomPage.confirmReservation();
+        if (action.equalsIgnoreCase("start")) shadyMeadows.roomPage().startReservation();
+        else if (action.equalsIgnoreCase("finish")) shadyMeadows.roomPage().confirmReservation();
         else throw new IllegalArgumentException(String.format("%s action not recognized", action));
     }
 
@@ -35,29 +33,29 @@ public class RoomPageSteps extends BaseStep {
         int rowCount = DataTableHelper.rowCount(bookingInformation);
         for (int row = 0; row < rowCount; ++row) {
             String firstName = DataTableHelper.getColumnFromRow(bookingInformation, "FIRST_NAME", row);
-            if (firstName != null) roomPage.enterFirstName(firstName);
+            if (firstName != null) shadyMeadows.roomPage().enterFirstName(firstName);
 
             String lastName = DataTableHelper.getColumnFromRow(bookingInformation, "LAST_NAME", row);
-            if (lastName != null) roomPage.enterLastName(lastName);
+            if (lastName != null) shadyMeadows.roomPage().enterLastName(lastName);
 
             String email = DataTableHelper.getColumnFromRow(bookingInformation, "EMAIL", row);
-            if (email != null) roomPage.enterEmail(email);
+            if (email != null) shadyMeadows.roomPage().enterEmail(email);
 
             String phone = DataTableHelper.getColumnFromRow(bookingInformation, "PHONE", row);
-            if (phone != null) roomPage.enterPhone(phone);
+            if (phone != null) shadyMeadows.roomPage().enterPhone(phone);
         }
     }
 
     @Then("I get an error message because of the missing fields")
     public void isErrorMessageShown() throws InterruptedException {
-        boolean isErrorMessageShown = roomPage.isErrorMessageShown();
+        boolean isErrorMessageShown = shadyMeadows.roomPage().isErrorMessageShown();
         Thread.sleep(2000);
         Assert.assertTrue(isErrorMessageShown);
     }
 
     @Then("I get the booking confirmation with the booking dates")
     public void bookingConfirmation() {
-        String[] bookingDates = roomPage.getBookingDates();
+        String[] bookingDates = shadyMeadows.roomPage().getBookingDates();
         String checkin = bookingDates[0];
         String checkout = bookingDates[1];
 
