@@ -39,7 +39,6 @@ public class ShadyMeadowsBasePage {
     }
 
     protected void scrollToCenter(WebElement element) {
-        ((JavascriptExecutor) webdriver()).executeScript(
-                "arguments[0].scrollIntoView({block: 'center', inline: 'center'});", element);
+        webdriver().executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'center'});", element);
     }
 }
