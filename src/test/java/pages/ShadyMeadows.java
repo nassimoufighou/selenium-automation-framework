@@ -1,42 +1,39 @@
 package pages;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class ShadyMeadows {
 
-    private static ShadyMeadows instance;
-    private static HomePage homePage;
-    private static LoginPage loginPage;
-    private static AdminDashboardPage adminDashboardPage;
-    private static RoomPage roomPage;
+    @Autowired
+    private ShadyMeadows instance;
 
-    public static ShadyMeadows getInstance() {
-        if (instance == null) instance = new ShadyMeadows();
-        return instance;
-    }
+    @Autowired
+    private HomePage homePage;
 
-    public static HomePage welcomePage() {
-        if (homePage == null) homePage = new HomePage();
+    @Autowired
+    private LoginPage loginPage;
+
+    @Autowired
+    private AdminDashboardPage adminDashboardPage;
+
+    @Autowired
+    private RoomPage roomPage;
+
+    public HomePage welcomePage() {
         return homePage;
     }
 
-    public static LoginPage loginPage() {
-        if (loginPage == null) loginPage = new LoginPage();
+    public LoginPage loginPage() {
         return loginPage;
     }
 
-    public static AdminDashboardPage adminDashboardPage() {
-        if (adminDashboardPage == null) adminDashboardPage = new AdminDashboardPage();
+    public AdminDashboardPage adminDashboardPage() {
         return adminDashboardPage;
     }
 
-    public static RoomPage roomPage() {
-        if (roomPage == null) roomPage = new RoomPage();
+    public RoomPage roomPage() {
         return roomPage;
-    }
-
-    public static void reset() {
-        homePage = null;
-        loginPage = null;
-        adminDashboardPage = null;
-        roomPage = null;
     }
 }
