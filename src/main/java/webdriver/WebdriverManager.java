@@ -1,36 +1,28 @@
 package webdriver;
 
-import org.openqa.selenium.WebDriver;
-import utils.ConfigReader;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WebdriverManager {
 
-    private static WebdriverManager instance;
-    private static WebDriver webDriver;
+    @Autowired
+    private WebdriverFactory webdriverFactory;
+    private RobustWebdriver webdriver;
 
-    private WebdriverManager() {}
-
-    public static WebdriverManager getInstance() {
-        if (instance == null) instance = new WebdriverManager();
-        return instance;
+    public RobustWebdriver getWebdriver() {
+        if (webdriver == null) webdriver = webdriverFactory.create();
+        return webdriver;
     }
 
-    public void open(String  url) {
-        if (webDriver == null) {
-            String browser = ConfigReader.get("browser", "config.properties");
-            webDriver = WebdriverFactory.getWebdriverForBrowser(browser);
-        }
-        webDriver.get(url);
+    public void openUrl(String url) {
+        getWebdriver().get(url);
     }
 
-    public WebDriver getWebDriver() {
-        return webDriver;
-    }
-
-    public void quit() {
-        if (webDriver != null) {
-            webDriver.quit();
-            webDriver = null;
+    public void quitDriver() {
+        if (webdriver != null) {
+            webdriver.quit();
+            webdriver = null;
         }
     }
 }
