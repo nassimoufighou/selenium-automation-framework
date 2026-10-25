@@ -6,11 +6,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import webdriver.RobustWebdriver;
 import webdriver.WebdriverManager;
 import java.time.Duration;
 
 public class ShadyMeadowsBasePage {
+
+    @Value("${webdriver.wait.timeout}")
+    private long timeout;
 
     @Autowired
     private WebdriverManager webdriverManager;
@@ -20,7 +24,7 @@ public class ShadyMeadowsBasePage {
     }
 
     protected <T> T waitUntil(ExpectedCondition<T> condition) {
-        return new WebDriverWait(webdriver(), Duration.ofSeconds(5)).until(condition);
+        return new WebDriverWait(webdriver(), Duration.ofSeconds(timeout)).until(condition);
     }
 
     protected void clearInput(WebElement input) {
