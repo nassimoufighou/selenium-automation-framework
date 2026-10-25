@@ -1,24 +1,25 @@
 package cucumber;
 
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import pages.ShadyMeadows;
-import utils.ConfigReader;
+import io.cucumber.java.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import webdriver.WebdriverManager;
 
 public class CucumberHooks {
 
+    @Value("${base.url}")
+    private String baseUrl;
+
+    @Autowired
+    private WebdriverManager webdriverManager;
+
     @Before
     public void before() {
-        WebdriverManager.getInstance().open(ConfigReader.get("base.url", "config.properties"));
+        webdriverManager.openUrl(baseUrl);
     }
 
     @After
-    public void after() {
-        WebdriverManager.getInstance().quit();
-        ShadyMeadows.getInstance().reset();
+    public void after(Scenario scenario) {
+        webdriverManager.quitDriver();
     }
 }
