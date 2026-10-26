@@ -3,6 +3,10 @@ package cucumber.plugin;
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.event.*;
 import org.slf4j.Logger;
+import report.model.Scenario;
+import report.model.StepScenario;
+import report.factory.ScenarioFactory;
+import report.factory.StepScenarioFactory;
 import utils.LoggerUtils;
 
 import java.util.ArrayList;
@@ -11,6 +15,7 @@ import java.util.List;
 public class TestEventListenerPlugin implements ConcurrentEventListener {
 
     private Logger logger = LoggerUtils.getLogger(TestEventListenerPlugin.class);
+    private List<Scenario> scenarioList = new ArrayList<>();
 
     @Override
     public void setEventPublisher(EventPublisher eventPublisher) {
@@ -39,39 +44,42 @@ public class TestEventListenerPlugin implements ConcurrentEventListener {
     }
 
     private void onTestCaseStarted(TestCaseStarted testCaseStarted) {
-        logger.debug("onTestCaseStarted: {}", testCaseStarted.getTestCase().getName());
+        Scenario scenario = ScenarioFactory.buildScenario(testCaseStarted.getTestCase());
+        scenarioList.add(scenario);
+        logger.debug("onTestCaseStarted: {}", scenario.getName());
     }
 
     private void onTestStepStarted(TestStepStarted testStep) {
-        Step step = getStep(testStep.getTestStep());
+        Step step = StepScenarioFactory.getStep(testStep.getTestStep());
         if (step != null) {
-            String stepKeyword = step.getKeyword();
-            String stepText = step.getText();
-            logger.debug("onTestStepStarted - {} {}", stepKeyword, stepText);
+            StepScenario stepScenario = StepScenarioFactory.buildStep(testStep.getTestStep());
+            Scenario currentScenario = getCurrentScenario();
+            currentScenario.addStep(stepScenario);
+            logger.debug("onTestStepStarted - {} {}", stepScenario.getKeyword(), stepScenario.getText());
         }
     }
 
     private void onTestStepFinished(TestStepFinished testStep) {
-        Step step = getStep(testStep.getTestStep());
-        if (step != null) {
-            String stepKeyword = step.getKeyword();
-            String stepText = step.getText();
-            logger.debug("onTestStepFinished - {} {}", stepKeyword, stepText);
+        Scenario currentScenario = getCurrentScenario();
+        if (!currentScenario.getStepList().isEmpty()) {
+            currentScenario.getCurrentStep().updateStatus(testStep.getResult().getStatus().name());
+            logger.debug("onTestStepFinished - {} {} {}",
+                    currentScenario.getCurrentStep().getKeyword(),
+                    currentScenario.getCurrentStep().getText(),
+                    currentScenario.getCurrentStep().getStatus());
         }
     }
 
     private void onTestCaseFinished(TestCaseFinished testCaseFinished) {
-        logger.debug("onTestCaseFinished - status {}", testCaseFinished.getResult().getStatus().name());
+        getCurrentScenario().setStatus(testCaseFinished.getResult().getStatus().name());
+        logger.debug("onTestCaseFinished - status {}", getCurrentScenario().getStatus());
     }
 
     public void onTestRunFinished(TestRunFinished testRunFinished) {
         logger.debug("onTestRunFinished");
     }
 
-    private Step getStep(TestStep testStep) {
-        if (testStep instanceof PickleStepTestStep) {
-            return ((PickleStepTestStep) testStep).getStep();
-        }
-        return null;
+    private Scenario getCurrentScenario() {
+        return scenarioList.get(scenarioList.size() - 1);
     }
 }
