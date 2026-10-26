@@ -1,5 +1,7 @@
 package cucumber.plugin;
 
+import context.GlobalExecutionContext;
+import context.SpringContext;
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.event.*;
 import org.slf4j.Logger;
@@ -10,13 +12,11 @@ import report.factory.StepScenarioFactory;
 import utils.JsonExporter;
 import utils.LoggerUtils;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TestEventListenerPlugin implements ConcurrentEventListener {
 
     private Logger logger = LoggerUtils.getLogger(TestEventListenerPlugin.class);
-    private List<Scenario> scenarioList = new ArrayList<>();
+    private GlobalExecutionContext globalExecutionContext;
 
     @Override
     public void setEventPublisher(EventPublisher eventPublisher) {
@@ -45,8 +45,9 @@ public class TestEventListenerPlugin implements ConcurrentEventListener {
     }
 
     private void onTestCaseStarted(TestCaseStarted testCaseStarted) {
+        globalExecutionContext = SpringContext.getBean(GlobalExecutionContext.class);
         Scenario scenario = ScenarioFactory.buildScenario(testCaseStarted.getTestCase());
-        scenarioList.add(scenario);
+        globalExecutionContext.addScenario(scenario);
         logger.debug("onTestCaseStarted: {}", scenario.getName());
     }
 
@@ -76,7 +77,8 @@ public class TestEventListenerPlugin implements ConcurrentEventListener {
         Scenario currentScenario = getCurrentScenario();
         currentScenario.setStatus(testCaseFinished.getResult().getStatus().name());
         if (testCaseFinished.getResult().getStatus().equals(Status.FAILED)) currentScenario.setErrorMessage(testCaseFinished.getResult().getError().getMessage());
-        JsonExporter.writeList(scenarioList, Path.of("output", "scenarios.json"));
+        JsonExporter.writeList(globalExecutionContext.getScenariosList(),
+                Path.of(globalExecutionContext.getReportPath(), "scenarios.json"));
         logger.debug("onTestCaseFinished - status {}", getCurrentScenario().getStatus());
     }
 
@@ -85,6 +87,6 @@ public class TestEventListenerPlugin implements ConcurrentEventListener {
     }
 
     private Scenario getCurrentScenario() {
-        return scenarioList.get(scenarioList.size() - 1);
+        return globalExecutionContext.getCurrentScenario();
     }
 }
