@@ -12,6 +12,7 @@ public class Scenario {
 
     private String name;
     private String status;
+    private String errorMessage;
     private List<StepScenario> stepList;
 
     public void addStep(StepScenario step) {
