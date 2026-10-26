@@ -17,8 +17,10 @@
         <testng.version>7.10.2</testng.version>
         <cucumber.version>7.33.0</cucumber.version>
         <cucumber.testng.version>7.25.0</cucumber.testng.version>
+        <cucumber.version>7.33.0</cucumber.version>
+        <spring.version>3.3.4</spring.version>
         <sl4j.version>2.0.18</sl4j.version>
-        <logback.version>1.6.5</logback.version>
+        <logback.version>1.5.6</logback.version>
         <lombok.version>1.18.46</lombok.version>
     </properties>
 
@@ -60,7 +62,31 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-testng</artifactId>
             <version>${cucumber.testng.version}</version>
-            <scope>compile</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-spring -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <!-- Exclude JUnit since we use TestNG -->
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Source: https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
