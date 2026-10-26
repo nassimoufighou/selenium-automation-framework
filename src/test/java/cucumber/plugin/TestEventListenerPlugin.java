@@ -7,8 +7,9 @@ import report.model.Scenario;
 import report.model.StepScenario;
 import report.factory.ScenarioFactory;
 import report.factory.StepScenarioFactory;
+import utils.JsonExporter;
 import utils.LoggerUtils;
-
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +64,7 @@ public class TestEventListenerPlugin implements ConcurrentEventListener {
         Scenario currentScenario = getCurrentScenario();
         if (!currentScenario.getStepList().isEmpty()) {
             currentScenario.getCurrentStep().updateStatus(testStep.getResult().getStatus().name());
+            if (testStep.getResult().getStatus().equals(Status.FAILED)) currentScenario.getCurrentStep().setErrorMessage(testStep.getResult().getError().getMessage());
             logger.debug("onTestStepFinished - {} {} {}",
                     currentScenario.getCurrentStep().getKeyword(),
                     currentScenario.getCurrentStep().getText(),
@@ -71,7 +73,10 @@ public class TestEventListenerPlugin implements ConcurrentEventListener {
     }
 
     private void onTestCaseFinished(TestCaseFinished testCaseFinished) {
-        getCurrentScenario().setStatus(testCaseFinished.getResult().getStatus().name());
+        Scenario currentScenario = getCurrentScenario();
+        currentScenario.setStatus(testCaseFinished.getResult().getStatus().name());
+        if (testCaseFinished.getResult().getStatus().equals(Status.FAILED)) currentScenario.setErrorMessage(testCaseFinished.getResult().getError().getMessage());
+        JsonExporter.writeList(scenarioList, Path.of("output", "scenarios.json"));
         logger.debug("onTestCaseFinished - status {}", getCurrentScenario().getStatus());
     }
 
